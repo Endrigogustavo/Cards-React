@@ -1,0 +1,126 @@
+$bg-color: #2b2b2b;
+
+@mixin circle($h, $w) {
+  height: $h;
+  width: $w;
+  border-radius: 50%;
+}
+
+@mixin hole($b: $bg-color) {
+  position: absolute;
+  transform: translateX(-50%);
+  background-color: $b;
+}
+
+@mixin blob($t, $l) {
+  position: absolute;
+  top: $t;
+  left: $l;
+  @include circle(20px, 20px);
+  background-color: #FFF;
+  &::after {
+    content: '';
+    @include circle(10px, 10px);
+    @include hole();
+    width: 16px;
+    height: 16px;
+    left: 10px;
+    top: 2px;
+  }
+}
+body {
+  background-color: $bg-color;
+  .container {
+    width: 250px;
+    height: 250px;
+    margin: auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    top: 100px;
+    transform: rotate(30deg);
+    .potion-top {
+      width: 35px;
+      height: 55px;
+      position: absolute;
+      top: -53px;
+      border-radius: 5px;
+      border: 5px solid #FFF;
+      border-bottom-color: $bg-color;
+      background-color: $bg-color;
+      z-index: 3;
+      .potion-top-line {
+        position: absolute;
+        width: 10px;
+        top: 8px;
+        height: 3px;
+        right: 2px;
+        background-color: #FFF;
+      }
+    }
+    .potion-neck {
+      width: 70px;
+      height: 20px;
+      position: absolute;
+      z-index: 4;
+      top: -30px;
+      border-radius: 5px;
+      border: 5px solid #FFF;
+      background-color: $bg-color;
+    }
+    .potion-body {
+      $h: 200px;
+      $w: 200px;
+      @include circle($h, $w);
+      border: 8px solid #FFF;
+      position: relative;
+      z-index: 2;
+      .potion-content {
+        $h: 180px;
+        $w: 180px;
+        @include circle($h, $w);
+        background-color: $bg-color;
+        position: relative;
+        z-index: 2;
+        top: 10px;
+        left: 9px;
+        overflow: hidden;
+        &::after {
+          $border-width: 10px;
+          content: "";
+          position: absolute;
+          border-radius: .5em .5em 5.563em 5.563em;
+          width: 270px;
+          height: 250px;
+          bottom: -130px;
+          left: -30px;
+          background-color: #36D8C5;
+          border-radius: 40%;
+          animation: drift 3000ms infinite cubic-bezier(0.5, 0.7, 0.7, 0.5);
+        }
+        .blob-container {
+          width: 80px;
+          height: 80px;
+          position: absolute;
+          top: 40%;
+          z-index: 4;
+          left: 10%;
+          .blob-one {
+            @include blob(20px, 25px);
+          }
+          .blob-two {
+            @include blob(30px, 0px);
+          }
+          .blob-three {
+            @include blob(50px, 20px);
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes drift {
+  from { transform: rotate(0deg); }
+  from { transform: rotate(360deg); }
+}
