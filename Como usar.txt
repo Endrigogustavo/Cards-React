@@ -3,6 +3,13 @@ npm create vite@latest
 
 cd nome projeto
 npm install
-npm install sass
 
 npm run dev
+
+Sass
+npm install sass
+
+Pug
+npm install --save-dev babel-plugin-transform-react-pug
+
+npx creat-react-app nome do projeto
